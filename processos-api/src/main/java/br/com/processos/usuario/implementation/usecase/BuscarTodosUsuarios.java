@@ -5,16 +5,15 @@ import br.com.processos.usuario.specification.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
+import java.util.List;
 
 @Component
-public class BuscarPorId {
+public class BuscarTodosUsuarios {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public Usuario executar(Long id) {
-        Optional<Usuario> usuario = usuarioRepository.findById(id);
-        return usuario.orElse(null);
+    public List<Usuario> executar() {
+        return (List<Usuario>) usuarioRepository.findAll();
     }
 }

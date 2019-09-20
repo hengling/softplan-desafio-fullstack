@@ -11,6 +11,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Getter
@@ -19,17 +21,27 @@ import javax.persistence.Id;
 public class Usuario {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @NotNull
+    @NotEmpty
+    @Column(nullable = false, length = 250)
     private String nome;
 
-    @Column(nullable = false)
+    @NotNull
+    @NotEmpty
+    @Column(nullable = false, length = 250)
     private String email;
 
-    @Column(nullable = false, name = "tipo")
+    @NotNull
     @Enumerated(EnumType.STRING)
-    private EnumTipoUsuario tipoUsuario;
+    @Column(nullable = false, length = 32)
+    private EnumTipoUsuario tipo;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, name = "situacao", length = 32)
+    private EnumSituacaoUsuario situacao;
 
 }

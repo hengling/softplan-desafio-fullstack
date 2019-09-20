@@ -1,7 +1,10 @@
 package br.com.processos.usuario.implementation;
 
-import br.com.processos.usuario.implementation.usecase.BuscarPorId;
-import br.com.processos.usuario.implementation.usecase.BuscarTodos;
+import br.com.processos.usuario.implementation.usecase.AtualizarUsuario;
+import br.com.processos.usuario.implementation.usecase.BuscarTodosUsuarios;
+import br.com.processos.usuario.implementation.usecase.BuscarUsuarioPorId;
+import br.com.processos.usuario.implementation.usecase.InserirUsuario;
+import br.com.processos.usuario.implementation.usecase.RemoverUsuario;
 import br.com.processos.usuario.specification.IUsuario;
 import br.com.processos.usuario.specification.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,18 +16,42 @@ import java.util.List;
 public class UsuarioImpl implements IUsuario {
 
     @Autowired
-    private BuscarPorId buscarPorId;
+    private BuscarUsuarioPorId buscarUsuarioPorId;
 
     @Autowired
-    private BuscarTodos buscarTodos;
+    private BuscarTodosUsuarios buscarTodosUsuarios;
+
+    @Autowired
+    private InserirUsuario inserirUsuario;
+
+    @Autowired
+    private AtualizarUsuario atualizarUsuario;
+
+    @Autowired
+    private RemoverUsuario removerUsuario;
 
     @Override
     public Usuario buscarPorId(Long id) {
-        return buscarPorId.executar(id);
+        return buscarUsuarioPorId.executar(id);
     }
 
     @Override
     public List<Usuario> buscarTodos() {
-        return buscarTodos.executar();
+        return buscarTodosUsuarios.executar();
+    }
+
+    @Override
+    public Usuario inserir(Usuario novoUsuarioo) {
+        return inserirUsuario.executar(novoUsuarioo);
+    }
+
+    @Override
+    public Usuario atualizar(Long id, Usuario usuarioModificado) {
+        return atualizarUsuario.executar(id, usuarioModificado);
+    }
+
+    @Override
+    public void remover(Long id) {
+        removerUsuario.executar(id);
     }
 }
