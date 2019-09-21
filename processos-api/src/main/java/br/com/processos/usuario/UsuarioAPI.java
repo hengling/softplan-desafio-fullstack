@@ -1,6 +1,7 @@
 package br.com.processos.usuario;
 
-import br.com.processos.usuario.specification.IUsuario;
+import br.com.processos.usuario.specification.IUsuarioBusca;
+import br.com.processos.usuario.specification.IUsuarioPersistencia;
 import br.com.processos.usuario.specification.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,31 +24,34 @@ import java.util.List;
 public class UsuarioAPI {
 
     @Autowired
-    private IUsuario iUsuario;
+    private IUsuarioBusca iUsuarioBusca;
+
+    @Autowired
+    private IUsuarioPersistencia iUsuarioPersistencia;
 
     @GetMapping
     public List<Usuario> buscarTodos() {
-        return iUsuario.buscarTodos();
+        return iUsuarioBusca.buscarTodos();
     }
 
     @GetMapping(path = "/{id}")
     public Usuario buscarPorId(@Valid @NotNull @PathVariable Long id) {
-        return iUsuario.buscarPorId(id);
+        return iUsuarioBusca.buscarPorId(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Usuario inserir(@Valid @NotNull @RequestBody Usuario usuario) {
-        return iUsuario.inserir(usuario);
+        return iUsuarioPersistencia.inserir(usuario);
     }
 
     @PutMapping(path = "/{id}")
     public Usuario atualizar(@NotNull @PathVariable Long id, @Valid @NotNull @RequestBody Usuario usuarioModificado) {
-        return iUsuario.atualizar(id, usuarioModificado);
+        return iUsuarioPersistencia.atualizar(id, usuarioModificado);
     }
 
     @DeleteMapping(path = "/{id}")
     public void remover(@NotNull @PathVariable Long id) {
-        iUsuario.remover(id);
+        iUsuarioPersistencia.remover(id);
     }
 }

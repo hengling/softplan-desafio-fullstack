@@ -1,4 +1,4 @@
-package br.com.processos.usuario.implementation.usecase;
+package br.com.processos.usuario.implementation.usecase.persistencia;
 
 import br.com.processos.usuario.implementation.repository.UsuarioRepository;
 import br.com.processos.usuario.specification.entity.Usuario;
